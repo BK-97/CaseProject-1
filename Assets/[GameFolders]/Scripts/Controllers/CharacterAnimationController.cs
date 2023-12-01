@@ -22,6 +22,12 @@ public class CharacterAnimationController : MonoBehaviour
         else
             animator.applyRootMotion = false;
     }
+    public void HitAnim()
+    {
+        animator.applyRootMotion = false;
+        animator.SetTrigger("Hit");
+
+    }
     private void DeathAnim()
     {
         animator.Rebind();

@@ -12,11 +12,13 @@ public class FeedbackPanel : PanelBase
     {
         OnFeedbackOpen.AddListener(GiveFeedback);
         OnFeedbackClose.AddListener(HidePanel);
+        LevelManager.Instance.OnLevelFinish.AddListener(HidePanel);
     }
     private void OnDisable()
     {
         OnFeedbackOpen.RemoveListener(GiveFeedback);
         OnFeedbackClose.RemoveListener(HidePanel);
+        LevelManager.Instance.OnLevelFinish.RemoveListener(HidePanel);
     }
     private void GiveFeedback(string feedbackString)
     {

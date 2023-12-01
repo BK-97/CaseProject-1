@@ -28,11 +28,14 @@ public class GameManager : Singleton<GameManager>
     {
         OnStageWin.AddListener(() => CompeleteStage(true));
         OnStageLoose.AddListener(() => CompeleteStage(false));
+        LevelManager.Instance.OnLevelStart.AddListener(() => IsStageCompleted = false);
     }
     private void OnDisable()
     {
         OnStageWin.RemoveListener(() => CompeleteStage(true));
         OnStageLoose.RemoveListener(() => CompeleteStage(false));
+        LevelManager.Instance.OnLevelStart.RemoveListener(() => IsStageCompleted = false);
+
     }
     #endregion
     #region MyMethods
@@ -59,6 +62,7 @@ public class GameManager : Singleton<GameManager>
     {
         if (!LevelManager.Instance.IsLevelStarted)
             return;
+        Debug.Log("Win");
 
         if (IsStageCompleted == true)
             return;

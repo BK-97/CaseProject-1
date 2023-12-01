@@ -19,7 +19,7 @@ public class LevelManager : Singleton<LevelManager>
         get
         {
             int level = PlayerPrefs.GetInt("CurrentLevel", 0);
-            if (level >  SceneManager.sceneCount- 3)
+            if (level >=  SceneManager.sceneCountInBuildSettings - 2)
             {
                 level = 0;
             }
@@ -45,6 +45,7 @@ public class LevelManager : Singleton<LevelManager>
     public void ReloadLevel()
     {
         FinishLevel();
+        SceneController.Instance.UnloadScene(LevelIndex + 2);
         SceneController.Instance.LoadScene(LevelIndex + 2);
     }
     public void LoadLastLevel()
@@ -55,9 +56,9 @@ public class LevelManager : Singleton<LevelManager>
     public void LoadNextLevel()
     {
         FinishLevel();
-
+        SceneController.Instance.UnloadScene(LevelIndex + 2);
         LevelIndex++;
-        if (LevelIndex > SceneManager.sceneCount - 3)
+        if (LevelIndex > SceneManager.sceneCountInBuildSettings - 2)
         {
             LevelIndex = 0;
         }
@@ -71,7 +72,7 @@ public class LevelManager : Singleton<LevelManager>
         LevelIndex--;
         if (LevelIndex <= -1)
         {
-            LevelIndex = SceneManager.sceneCount - 3;
+            LevelIndex = SceneManager.sceneCountInBuildSettings - 2;
 
         }
 
@@ -88,6 +89,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (!IsLevelStarted)
             return;
+
         IsLevelStarted = false;
         OnLevelFinish.Invoke();
     }

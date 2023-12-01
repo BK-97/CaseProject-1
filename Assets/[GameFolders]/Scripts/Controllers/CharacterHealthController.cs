@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public class CharacterHealthController : MonoBehaviour
+public class CharacterHealthController : MonoBehaviour,IDamagable
 {
     private float currentHealth;
     public float _maxHealth;
     bool canTakeDamage;
     public static UnityEvent OnCharacterDie = new UnityEvent();
+    public static UnityEvent OnCharacterTakeDamage = new UnityEvent();
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class CharacterHealthController : MonoBehaviour
         else
         {
             currentHealth -= damage;
+            OnCharacterTakeDamage.Invoke();
         }
     }
     public void Die()

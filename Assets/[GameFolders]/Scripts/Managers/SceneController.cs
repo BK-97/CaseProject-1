@@ -29,13 +29,14 @@ public class SceneController : Singleton<SceneController>
     IEnumerator LoadSceneCo(int buildIndex)
     {
         loadingInProgress = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            var scene = SceneManager.GetSceneAt(i);
-            yield return UnloadSceneCo(scene);
-        }
+
+        //for (int i = 0; i < SceneManager.sceneCount; i++)
+        //{
+        //    var scene = SceneManager.GetSceneAt(i);
+        //    yield return UnloadSceneCo(scene);
+        //}
 
         OnSceneStartedLoading.Invoke();
 
@@ -49,18 +50,18 @@ public class SceneController : Singleton<SceneController>
         loadingInProgress = false;
     }
 
-    public void UnloadScene(string sceneName)
+    public void UnloadScene(int sceneIndex)
     {
-        Scene scene = SceneManager.GetSceneByName(sceneName);
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
-        StartCoroutine(UnloadSceneCo(scene));
+        var test = SceneManager.GetSceneByBuildIndex(sceneIndex);
+        Debug.Log(test.name);
+        StartCoroutine(UnloadSceneCo(sceneIndex));
     }
 
-    IEnumerator UnloadSceneCo(Scene scene)
+    IEnumerator UnloadSceneCo(int sceneIndex)
     {
-        OnSceneInfo.Invoke(scene, false);
         OnSceneUnloading.Invoke();
-        yield return SceneManager.UnloadSceneAsync(scene.buildIndex);
+        yield return SceneManager.UnloadSceneAsync(sceneIndex);
         OnSceneUnLoaded.Invoke();
     }
 

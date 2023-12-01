@@ -17,6 +17,7 @@ public class CharacterMovementController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
+
     public void Move()
     {
         Vector3 moveDirection = InputManager.Instance.GetDirection();
@@ -38,10 +39,26 @@ public class CharacterMovementController : MonoBehaviour
     private void OnEnable()
     {
         LevelManager.Instance.OnLevelStart.AddListener(() => canMove = true);
+        CharacterHealthController.OnCharacterTakeDamage.AddListener(()=>StartCoroutine(HitActionCO()));
+        CharacterHealthController.OnCharacterDie.AddListener(() => canMove = false);
     }
     private void OnDisable()
     {
         LevelManager.Instance.OnLevelStart.RemoveListener(() => canMove = true);
+        CharacterHealthController.OnCharacterTakeDamage.RemoveListener(() => StartCoroutine(HitActionCO()));
+        CharacterHealthController.OnCharacterDie.RemoveListener(() => canMove = false);
+    }
+    IEnumerator HitActionCO()
+    {
+        canMove = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+        rb.AddForce(Vector3.back * rb.mass * 5, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.5f);
+
+        rb.freezeRotation = false;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        canMove = true;
     }
     private void Update()
     {
