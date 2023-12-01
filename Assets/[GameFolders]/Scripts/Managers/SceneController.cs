@@ -45,6 +45,7 @@ public class SceneController : Singleton<SceneController>
         yield return new WaitForSeconds(0.2f);
         OnSceneLoaded.Invoke();
         OnSceneInfo.Invoke(loadedScene, true);
+        GameManager.Instance.IsGameStarted = true;
         loadingInProgress = false;
     }
 

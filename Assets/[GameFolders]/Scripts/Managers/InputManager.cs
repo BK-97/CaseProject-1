@@ -6,8 +6,17 @@ public class InputManager : Singleton<InputManager>
 {
     private InputActions input = null;
     private Vector2 moveVector = Vector2.zero;
+    private void Update()
+    {
+        if (!LevelManager.Instance.IsLevelStarted && GameManager.Instance.IsGameStarted)
+        {
+            if (Input.GetMouseButtonDown(0))
+                LevelManager.Instance.OnLevelStart.Invoke();
+        }
+    }
     private void OnEnable()
     {
+        input = new InputActions();
         LevelManager.Instance.OnLevelStart.AddListener(AddInputListeners);
         LevelManager.Instance.OnLevelFinish.RemoveListener(RemoveInputListeners);
     }
