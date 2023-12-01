@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 public class InputManager : Singleton<InputManager>
 {
     private InputActions input = null;
     private Vector2 moveVector = Vector2.zero;
+    public static UnityEvent OnInteractInput = new UnityEvent();
     private void Update()
     {
         if (!LevelManager.Instance.IsLevelStarted && GameManager.Instance.IsGameStarted)
@@ -30,12 +32,19 @@ public class InputManager : Singleton<InputManager>
         input.Enable();
         input.Player.WASD.performed += OnMovementPerformed;
         input.Player.WASD.canceled += OnMovementCancelled;
+        input.Player.Interact.performed += Interact;
+    }
+    private void Interact(InputAction.CallbackContext value)
+    {
+        OnInteractInput.Invoke();
     }
     private void RemoveInputListeners()
     {
         input.Disable();
         input.Player.WASD.performed -= OnMovementPerformed;
         input.Player.WASD.canceled -= OnMovementCancelled;
+        input.Player.Interact.performed -= Interact;
+
     }
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
