@@ -30,7 +30,7 @@ public class Interactor : MonoBehaviour
         {
             nearInteractable = interactable;
             string feedbackString = "PRESS E FOR INTERACT";
-            //FeedbackPanel.OnFeedbackOpen.Invoke(feedbackString);
+            FeedbackPanel.OnFeedbackOpen.Invoke(feedbackString);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -39,7 +39,7 @@ public class Interactor : MonoBehaviour
         if (interactable != null)
         {
             nearInteractable = null;
-            //FeedbackPanel.OnFeedbackClose.Invoke();
+            FeedbackPanel.OnFeedbackClose.Invoke();
         }
     }
 }
