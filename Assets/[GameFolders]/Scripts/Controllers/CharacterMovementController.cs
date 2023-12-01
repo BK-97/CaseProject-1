@@ -17,7 +17,23 @@ public class CharacterMovementController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-
+    private void OnEnable()
+    {
+        LevelManager.Instance.OnLevelStart.AddListener(() => canMove = true);
+        CharacterHealthController.OnCharacterTakeDamage.AddListener(() => StartCoroutine(HitActionCO()));
+        CharacterHealthController.OnCharacterDie.AddListener(() => canMove = false);
+    }
+    private void OnDisable()
+    {
+        LevelManager.Instance.OnLevelStart.RemoveListener(() => canMove = true);
+        CharacterHealthController.OnCharacterTakeDamage.RemoveListener(() => StartCoroutine(HitActionCO()));
+        CharacterHealthController.OnCharacterDie.RemoveListener(() => canMove = false);
+    }
+    private void Update()
+    {
+        if (canMove)
+            Move();
+    }
     public void Move()
     {
         Vector3 moveDirection = InputManager.Instance.GetDirection();
@@ -32,22 +48,19 @@ public class CharacterMovementController : MonoBehaviour
         if (Mathf.Abs(currentSpeed) > 4.9f)
             currentSpeed = 5;
 
-        rb.velocity = moveDirection * currentSpeed;
+        rb.velocity = new Vector3(moveDirection.x * currentSpeed, rb.velocity.y, moveDirection.z * currentSpeed);
         AnimController.SetSpeed(currentSpeed, maxSpeed);
-        RotateTowards();
+        RotateTowards(moveDirection);
     }
-    private void OnEnable()
+    public void RotateTowards(Vector3 rotateDirection)
     {
-        LevelManager.Instance.OnLevelStart.AddListener(() => canMove = true);
-        CharacterHealthController.OnCharacterTakeDamage.AddListener(()=>StartCoroutine(HitActionCO()));
-        CharacterHealthController.OnCharacterDie.AddListener(() => canMove = false);
+        if (rotateDirection != Vector3.zero)
+        {
+            Quaternion toRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * ROTATE_SPEED);
+        }
     }
-    private void OnDisable()
-    {
-        LevelManager.Instance.OnLevelStart.RemoveListener(() => canMove = true);
-        CharacterHealthController.OnCharacterTakeDamage.RemoveListener(() => StartCoroutine(HitActionCO()));
-        CharacterHealthController.OnCharacterDie.RemoveListener(() => canMove = false);
-    }
+   
     IEnumerator HitActionCO()
     {
         canMove = false;
@@ -60,25 +73,13 @@ public class CharacterMovementController : MonoBehaviour
 
         canMove = true;
     }
-    private void Update()
-    {
-        if(canMove)
-            Move();
-    }
+
     public void MoveEnd()
     {
         rb.velocity = Vector3.zero;
         AnimController.SetSpeed(currentSpeed, maxSpeed);
     }
-    public void RotateTowards()
-    {
-        Vector3 rotateDirection = InputManager.Instance.GetDirection();
-        if (rotateDirection != Vector3.zero)
-        {
-            Quaternion toRotation = Quaternion.LookRotation(rotateDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * ROTATE_SPEED);
-        }
-    }
+    
     public void SetSpeed(int speed)
     {
         maxSpeed = speed;

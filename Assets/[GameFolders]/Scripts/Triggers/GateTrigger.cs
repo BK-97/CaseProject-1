@@ -16,12 +16,30 @@ public class GateTrigger : MonoBehaviour, IInteractable
     {
         canBeInteract = true;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        Interactor interactor = other.GetComponent<Interactor>();
+        if (interactor != null && canBeInteract)
+        {
+            interactor.EnterInteractableArea(this);
+
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Interactor interactor = other.GetComponent<Interactor>();
+        if (interactor != null)
+        {
+            interactor.ExitInteractableArea(this);
+
+        }
+    }
     public void Interact()
     {
         if (!canBeInteract)
             return;
         GameManager.Instance.CompeleteStage(true);
-
+        FeedbackPanel.OnFeedbackClose.Invoke();
         leftDoor.transform.DORotate(new Vector3(0f, 90f, 0f), GATE_OPEN_TIME);
         rightDoor.transform.DORotate(new Vector3(0f, -90f, 0f), GATE_OPEN_TIME);
         

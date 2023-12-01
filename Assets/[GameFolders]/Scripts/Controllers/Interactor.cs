@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
-    private IInteractable nearInteractable;
+    private IInteractable currentInteractable;
     bool canInteract = true;
 
     private void OnEnable()
@@ -15,31 +15,25 @@ public class Interactor : MonoBehaviour
     {
         InputManager.OnInteractInput.RemoveListener(InteractWithInteractable);
     }
+    public void EnterInteractableArea(IInteractable interactable)
+    {
+        currentInteractable = interactable;
+        string feedbackString = "PRESS E FOR INTERACT";
+        FeedbackPanel.OnFeedbackOpen.Invoke(feedbackString);
+    }
+    public void ExitInteractableArea(IInteractable interactable)
+    {
+        currentInteractable = null;
+        FeedbackPanel.OnFeedbackClose.Invoke();
+
+    }
     private void InteractWithInteractable()
     {
         if (!canInteract)
             return;
-        if (nearInteractable == null)
+        if (currentInteractable == null)
             return;
-        nearInteractable.Interact();
+        currentInteractable.Interact();
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        IInteractable interactable = other.GetComponent<IInteractable>();
-        if (interactable != null && interactable.canBeInteract)
-        {
-            nearInteractable = interactable;
-            string feedbackString = "PRESS E FOR INTERACT";
-            FeedbackPanel.OnFeedbackOpen.Invoke(feedbackString);
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        IInteractable interactable = other.GetComponent<IInteractable>();
-        if (interactable != null)
-        {
-            nearInteractable = null;
-            FeedbackPanel.OnFeedbackClose.Invoke();
-        }
-    }
+   
 }

@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 245398398}
   - component: {fileID: 245398397}
   - component: {fileID: 245398396}
-  - component: {fileID: 245398395}
   - component: {fileID: 245398394}
   m_Layer: 5
   m_Name: FeedbackPanel
@@ -178,18 +177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackText: {fileID: 754231232}
---- !u!114 &245398395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 245398392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3e72fb2ea8ae0341b36c61052be7276, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!225 &245398396
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -375,11 +362,11 @@ RectTransform:
   m_Father: {fileID: 245398393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -247.4}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 74}
   m_SizeDelta: {x: 0, y: 50}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &754231232
 MonoBehaviour:
   m_ObjectHideFlags: 0

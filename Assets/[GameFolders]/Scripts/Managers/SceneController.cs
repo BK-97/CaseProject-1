@@ -31,13 +31,6 @@ public class SceneController : Singleton<SceneController>
         loadingInProgress = true;
         yield return new WaitForSeconds(1f);
 
-
-        //for (int i = 0; i < SceneManager.sceneCount; i++)
-        //{
-        //    var scene = SceneManager.GetSceneAt(i);
-        //    yield return UnloadSceneCo(scene);
-        //}
-
         OnSceneStartedLoading.Invoke();
 
         yield return SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
@@ -54,7 +47,6 @@ public class SceneController : Singleton<SceneController>
     {
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
         var test = SceneManager.GetSceneByBuildIndex(sceneIndex);
-        Debug.Log(test.name);
         StartCoroutine(UnloadSceneCo(sceneIndex));
     }
 
