@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CharacterAnimationController : MonoBehaviour
 {
+    #region Params
     public Animator animator;
+    #endregion
+    #region Methods
     private void OnEnable()
     {
         CharacterHealthController.OnCharacterDie.AddListener(DeathAnim);
@@ -34,4 +37,5 @@ public class CharacterAnimationController : MonoBehaviour
         animator.applyRootMotion = true;
         animator.SetTrigger("Die");
     }
+    #endregion
 }

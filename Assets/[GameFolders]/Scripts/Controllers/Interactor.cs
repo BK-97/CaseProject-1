@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Interactor : MonoBehaviour
 {
+    #region Params
     private IInteractable currentInteractable;
-    bool canInteract = true;
+    private bool canInteract = true;
+    #endregion
+    #region Methods
 
     private void OnEnable()
     {
@@ -35,5 +38,5 @@ public class Interactor : MonoBehaviour
             return;
         currentInteractable.Interact();
     }
-   
+    #endregion
 }

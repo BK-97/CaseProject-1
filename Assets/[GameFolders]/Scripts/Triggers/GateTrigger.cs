@@ -11,7 +11,6 @@ public class GateTrigger : MonoBehaviour, IInteractable
     const float GATE_OPEN_TIME = 1;
     #endregion
     #region Methods
-
     private void Start()
     {
         canBeInteract = true;

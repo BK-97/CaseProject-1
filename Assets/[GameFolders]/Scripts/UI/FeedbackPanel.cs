@@ -6,10 +6,16 @@ using TMPro;
 using DG.Tweening;
 public class FeedbackPanel : PanelBase
 {
+    #region Params
+    [SerializeField]
+    private TextMeshProUGUI feedbackText;
+    Tween textTween;
+    #endregion
+    #region Events
     public static StringEvent OnFeedbackOpen = new StringEvent();
     public static UnityEvent OnFeedbackClose = new UnityEvent();
-    public TextMeshProUGUI feedbackText;
-    Tween textTween;
+    #endregion
+    #region Methods
     private void OnEnable()
     {
         SceneController.Instance.OnSceneLoaded.AddListener(()=> GiveFeedback("Click For Start!"));
@@ -37,5 +43,6 @@ public class FeedbackPanel : PanelBase
         base.HidePanel();
         textTween.Kill();
     }
+    #endregion
 }
 public class StringEvent : UnityEvent<string> { }

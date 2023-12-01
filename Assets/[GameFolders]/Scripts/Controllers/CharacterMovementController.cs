@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CharacterMovementController : MonoBehaviour
 {
+    #region Params
+    public float maxSpeed;
+
     private CharacterAnimationController animController;
     public CharacterAnimationController AnimController { get { return (animController == null) ? animController = GetComponent<CharacterAnimationController>() : animController; } }
-    private Rigidbody rb = null;
-    public float maxSpeed;
-    [SerializeField]
     private float currentSpeed;
-    bool canMove;
+    private Rigidbody rb = null;
+    private bool canMove;
     const float ACCELERATION = 10;
     const float ROTATE_SPEED = 720;
+    #endregion
+    #region MonoMethods
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,6 +38,9 @@ public class CharacterMovementController : MonoBehaviour
         if (canMove)
             Move();
     }
+    #endregion
+    #region MovementMethods
+
     public void Move()
     {
         Vector3 moveDirection = InputManager.Instance.GetDirection();
@@ -79,13 +86,5 @@ public class CharacterMovementController : MonoBehaviour
         rb.velocity = Vector3.zero;
         AnimController.SetSpeed(currentSpeed, maxSpeed);
     }
-    
-    public void SetSpeed(int speed)
-    {
-        maxSpeed = speed;
-    }
-    public float GetCurrentSpeed()
-    {
-        return currentSpeed;
-    }
+    #endregion
 }

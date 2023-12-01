@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+    #region Params
     bool canDamage;
     public int damage;
+    #endregion
+    #region Methods
     private void Start()
     {
         canDamage = true;
@@ -25,4 +28,6 @@ public class Obstacle : MonoBehaviour
         yield return new WaitForSeconds(1);
         canDamage = true;
     }
+    #endregion
+
 }

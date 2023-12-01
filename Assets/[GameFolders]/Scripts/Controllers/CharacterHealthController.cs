@@ -4,11 +4,17 @@ using UnityEngine;
 using UnityEngine.Events;
 public class CharacterHealthController : MonoBehaviour,IDamagable
 {
-    private float currentHealth;
+    #region Params
     public float _maxHealth;
-    bool canTakeDamage;
+
+    private float currentHealth;
+    private bool canTakeDamage;
+    #endregion
+    #region Events
     public static UnityEvent OnCharacterDie = new UnityEvent();
     public static UnityEvent OnCharacterTakeDamage = new UnityEvent();
+    #endregion
+    #region Methods
 
     void Start()
     {
@@ -33,5 +39,6 @@ public class CharacterHealthController : MonoBehaviour,IDamagable
         OnCharacterDie.Invoke();
         GameManager.Instance.CompeleteStage(false);
     }
+    #endregion
 
 }

@@ -5,11 +5,13 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 public class LevelManager : Singleton<LevelManager>
 {
-
+    #region Events
     [HideInInspector]
     public UnityEvent OnLevelStart = new UnityEvent();
     [HideInInspector]
     public UnityEvent OnLevelFinish = new UnityEvent();
+    #endregion
+    #region Params
 
     private bool isLevelStarted;
     public bool IsLevelStarted { get { return isLevelStarted; } set { isLevelStarted = value; } }
@@ -30,7 +32,8 @@ public class LevelManager : Singleton<LevelManager>
             PlayerPrefs.SetInt("CurrentLevel", value);
         }
     }
-   
+    #endregion
+    #region Methods
     private void OnEnable()
     {
         GameManager.Instance.OnStageLoose.AddListener(ReloadLevel);
@@ -93,5 +96,6 @@ public class LevelManager : Singleton<LevelManager>
         IsLevelStarted = false;
         OnLevelFinish.Invoke();
     }
+    #endregion
 
 }

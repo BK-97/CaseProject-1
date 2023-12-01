@@ -5,9 +5,15 @@ using UnityEngine.InputSystem;
 using UnityEngine.Events;
 public class InputManager : Singleton<InputManager>
 {
+    #region Params
     private InputActions input = null;
     private Vector2 moveVector = Vector2.zero;
+    #endregion
+    #region Events
     public static UnityEvent OnInteractInput = new UnityEvent();
+    #endregion
+    #region MonoMethods
+
     private void Update()
     {
         if (!LevelManager.Instance.IsLevelStarted && GameManager.Instance.IsGameStarted)
@@ -27,6 +33,8 @@ public class InputManager : Singleton<InputManager>
         LevelManager.Instance.OnLevelStart.RemoveListener(AddInputListeners);
         LevelManager.Instance.OnLevelFinish.RemoveListener(RemoveInputListeners);
     }
+    #endregion
+    #region Methods
     private void AddInputListeners()
     {
         input.Enable();
@@ -34,17 +42,12 @@ public class InputManager : Singleton<InputManager>
         input.Player.WASD.canceled += OnMovementCancelled;
         input.Player.Interact.performed += Interact;
     }
-    private void Interact(InputAction.CallbackContext value)
-    {
-        OnInteractInput.Invoke();
-    }
     private void RemoveInputListeners()
     {
         input.Disable();
         input.Player.WASD.performed -= OnMovementPerformed;
         input.Player.WASD.canceled -= OnMovementCancelled;
         input.Player.Interact.performed -= Interact;
-
     }
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
@@ -59,4 +62,10 @@ public class InputManager : Singleton<InputManager>
         Vector3 direction = new Vector3(moveVector.x, 0, moveVector.y);
         return direction;
     }
+    private void Interact(InputAction.CallbackContext value)
+    {
+        OnInteractInput.Invoke();
+    }
+    #endregion
+
 }
