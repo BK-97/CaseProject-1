@@ -39,14 +39,10 @@ public class InputManager : Singleton<InputManager>
     }
     private void OnMovementPerformed(InputAction.CallbackContext value)
     {
-        if (!LevelManager.Instance.IsLevelStarted)
-            return;
         moveVector = value.ReadValue<Vector2>();
     }
     private void OnMovementCancelled(InputAction.CallbackContext value)
     {
-        if (!LevelManager.Instance.IsLevelStarted)
-            return;
         moveVector = Vector2.zero;
     }
     public Vector3 GetDirection()
