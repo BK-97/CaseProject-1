@@ -62,7 +62,6 @@ public class GameManager : Singleton<GameManager>
     {
         if (!LevelManager.Instance.IsLevelStarted)
             return;
-        Debug.Log("Win");
 
         if (IsStageCompleted == true)
             return;
