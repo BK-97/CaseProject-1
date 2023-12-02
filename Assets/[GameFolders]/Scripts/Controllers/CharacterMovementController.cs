@@ -26,12 +26,14 @@ public class CharacterMovementController : MonoBehaviour
         LevelManager.Instance.OnLevelStart.AddListener(() => canMove = true);
         CharacterHealthController.OnCharacterTakeDamage.AddListener(() => StartCoroutine(HitActionCO()));
         CharacterHealthController.OnCharacterDie.AddListener(() => canMove = false);
+        LevelManager.Instance.OnLevelRestart.AddListener(ResetCharacter);
     }
     private void OnDisable()
     {
         LevelManager.Instance.OnLevelStart.RemoveListener(() => canMove = true);
         CharacterHealthController.OnCharacterTakeDamage.RemoveListener(() => StartCoroutine(HitActionCO()));
         CharacterHealthController.OnCharacterDie.RemoveListener(() => canMove = false);
+        LevelManager.Instance.OnLevelRestart.RemoveListener(ResetCharacter);
     }
     private void Update()
     {
@@ -40,7 +42,6 @@ public class CharacterMovementController : MonoBehaviour
     }
     #endregion
     #region MovementMethods
-
     public void Move()
     {
         Vector3 moveDirection = InputManager.Instance.GetDirection();
@@ -85,6 +86,11 @@ public class CharacterMovementController : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         AnimController.SetSpeed(currentSpeed, maxSpeed);
+    }
+    private void ResetCharacter()
+    {
+        transform.position = Vector3.zero;
+        animController.animator.Rebind();
     }
     #endregion
 }

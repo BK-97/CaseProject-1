@@ -10,6 +10,8 @@ public class LevelManager : Singleton<LevelManager>
     public UnityEvent OnLevelStart = new UnityEvent();
     [HideInInspector]
     public UnityEvent OnLevelFinish = new UnityEvent();
+    [HideInInspector]
+    public UnityEvent OnLevelRestart = new UnityEvent();
     #endregion
     #region Params
 
@@ -48,9 +50,20 @@ public class LevelManager : Singleton<LevelManager>
     public void ReloadLevel()
     {
         FinishLevel();
-        SceneController.Instance.UnloadScene(LevelIndex + 2);
-        SceneController.Instance.LoadScene(LevelIndex + 2);
+        StartCoroutine(WaitForRestart());
+
+        //Use the code below to restart the level by removing/loading the current level and delete the code above.
+
+        //SceneController.Instance.UnloadScene(LevelIndex + 2);
+        //SceneController.Instance.LoadScene(LevelIndex + 2);
     }
+    IEnumerator WaitForRestart()
+    {
+        yield return new WaitForSeconds(1);
+        OnLevelRestart.Invoke();
+        GameManager.Instance.IsStageCompleted = false;
+    }
+
     public void LoadLastLevel()
     {
         FinishLevel();

@@ -15,13 +15,20 @@ public class CharacterHealthController : MonoBehaviour,IDamagable
     public static UnityEvent OnCharacterTakeDamage = new UnityEvent();
     #endregion
     #region Methods
-
-    void Start()
+    private void SetHealth()
     {
         currentHealth = _maxHealth;
         canTakeDamage = true;
     }
-
+    private void OnEnable()
+    {
+        LevelManager.Instance.OnLevelStart.AddListener(SetHealth);
+    }
+    private void OnDisable()
+    {
+        LevelManager.Instance.OnLevelStart.RemoveListener(SetHealth);
+    }
+    
     public void TakeDamage(float damage)
     {
         if (!canTakeDamage)
