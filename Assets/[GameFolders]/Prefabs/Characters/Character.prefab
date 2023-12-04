@@ -41,6 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5101394442377920662}
+  - component: {fileID: 5481222154763465746}
   m_Layer: 6
   m_Name: TorchHolder
   m_TagString: Untagged
@@ -64,6 +65,19 @@ Transform:
   m_Father: {fileID: 4233770880134879013}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 3.271, y: -104.257, z: 175.406}
+--- !u!114 &5481222154763465746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338502165730663010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2dd4a6c8018f344fbdb9102b89527ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torchFire: {fileID: 1286582095549406974}
 --- !u!1 &490137695764965190
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,9 +374,8 @@ GameObject:
   - component: {fileID: 4862079397061591415}
   - component: {fileID: 746919029374278581}
   - component: {fileID: 5960718029749390318}
-  - component: {fileID: 7491411979497189433}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,19 +447,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7491411979497189433
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1243857351669406619}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1544519867111017077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2090,6 +2090,7 @@ GameObject:
   - component: {fileID: 7166337269788372341}
   - component: {fileID: 3145629752800149424}
   - component: {fileID: 8655489986208947612}
+  - component: {fileID: 1663261708032278269}
   m_Layer: 6
   m_Name: Character
   m_TagString: Untagged
@@ -2213,6 +2214,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f74aa80bb1cc4594d99e4e550c1aa1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1663261708032278269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799228678817890231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4502eea3bc1f8334ab20ebb0fdae55ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7967828718352575379
@@ -2618,3 +2631,9 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!1 &1286582095549406974 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1358144387518138, guid: 45a0f0d35d74a804189dd88b632faa41,
+    type: 3}
+  m_PrefabInstance: {fileID: 1287476030157361220}
+  m_PrefabAsset: {fileID: 0}

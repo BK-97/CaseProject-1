@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 1546509907}
   - component: {fileID: 1546509906}
   - component: {fileID: 1546509910}
+  - component: {fileID: 1546509911}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -244,6 +245,9 @@ MonoBehaviour:
   OnLevelFinish:
     m_PersistentCalls:
       m_Calls: []
+  OnLevelRestart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1546509909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,3 +284,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f33e6ef4e094fe41b882c6e0ef733d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1546509911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546509904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be50b41d6284ec4eb8c4bb444fd3ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentExpirationTime: 5
+  torchFire: {fileID: 0}
