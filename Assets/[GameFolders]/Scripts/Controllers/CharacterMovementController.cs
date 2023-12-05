@@ -20,6 +20,7 @@ public class CharacterMovementController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        _cachedStartPos = transform.position;
     }
     private void OnEnable()
     {
@@ -87,9 +88,10 @@ public class CharacterMovementController : MonoBehaviour
         rb.velocity = Vector3.zero;
         AnimController.SetSpeed(currentSpeed, maxSpeed);
     }
+    Vector3 _cachedStartPos;
     private void ResetCharacter()
     {
-        transform.position = Vector3.zero;
+        transform.position = _cachedStartPos;
         animController.animator.Rebind();
     }
     #endregion

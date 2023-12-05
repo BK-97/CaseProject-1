@@ -18,12 +18,21 @@ public class Collectable : MonoBehaviour,ICollectable
     public void Demolish()
     {
         roundAround.EndTurning();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
-
+    private void OnEnable()
+    {
+        LevelManager.Instance.OnLevelRestart.AddListener(Initialize);
+    }
+    private void OnDisable()
+    {
+        LevelManager.Instance.OnLevelRestart.RemoveListener(Initialize);
+    }
     public void Initialize()
     {
+        gameObject.SetActive(true);
         roundAround = GetComponent<RoundAround>();
         roundAround.StartTurning();
+
     }
 }

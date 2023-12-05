@@ -19,6 +19,7 @@ public class CharacterHealthController : MonoBehaviour,IDamagable
     {
         currentHealth = _maxHealth;
         canTakeDamage = true;
+        canTakeDamage = true;
     }
     private void OnEnable()
     {
@@ -44,6 +45,7 @@ public class CharacterHealthController : MonoBehaviour,IDamagable
     public void Die()
     {
         OnCharacterDie.Invoke();
+        canTakeDamage = false;
         GameManager.Instance.CompeleteStage(false);
     }
     #endregion

@@ -22,6 +22,9 @@ public class FeedbackPanel : PanelBase
         OnFeedbackOpen.AddListener(GiveFeedback);
         OnFeedbackClose.AddListener(HidePanel);
         LevelManager.Instance.OnLevelStart.AddListener(HidePanel);
+        GameManager.Instance.OnStageWin.AddListener(()=>GiveFeedback("Congratulations!"));
+        CharacterHealthController.OnCharacterDie.AddListener(()=>GiveFeedback("One More Time!"));
+        LevelManager.Instance.OnLevelRestart.AddListener(HidePanel);
     }
     private void OnDisable()
     {
@@ -29,7 +32,9 @@ public class FeedbackPanel : PanelBase
         OnFeedbackClose.RemoveListener(HidePanel);
         SceneController.Instance.OnSceneLoaded.RemoveListener(() => GiveFeedback("Click For Start!"));
         LevelManager.Instance.OnLevelStart.RemoveListener(HidePanel);
-
+        GameManager.Instance.OnStageWin.RemoveListener(() => GiveFeedback("Congratulations!"));
+        CharacterHealthController.OnCharacterDie.RemoveListener(() => GiveFeedback("One More Time!"));
+        LevelManager.Instance.OnLevelRestart.RemoveListener(HidePanel);
     }
     private void GiveFeedback(string feedbackString)
     {
